@@ -5,42 +5,13 @@
 	xmlns:xsi			= "http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:jdbc			= "http://www.springframework.org/schema/jdbc"
 	xsi:schemaLocation	= "http://www.springframework.org/schema/beans
-						   http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+						   http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 						   http://www.springframework.org/schema/security
-						   http://www.springframework.org/schema/security/spring-security-3.2.xsd">
-
-	<!-- don't use this in production -->
-	<!--
-	<security:debug/>
-
-	<security:ldap-server url="ldap://localhost:10389/dc=example,dc=com" />
+						   http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 	<security:http auto-config="true">
-	  <security:intercept-url pattern="/*"	access="ROLE_ADMINISTRATORS" />
+	  <security:intercept-url pattern="/*" access="ROLE_ADMINISTRATORS" />
 	  <security:form-login/>
-	  <security:logout/>
-	</security:http>
-
-	<security:authentication-manager>
-		<security:ldap-authentication-provider
-			user-dn-pattern		= "uid={0},ou=people"
-			group-search-base	= "ou=groups"
-			group-search-filter	= "(member={0})" />
-	</security:authentication-manager>
-	 -->
-
-	<!-- don't use this in production -->
-	<security:debug/>
-
-	<security:ldap-server
-		manager-dn 		 = "globoprdom\forumdg"
-		manager-password = "20081909"
-		url				 = "ldap://10.10.37.100:389/" />
-
- 	<security:http auto-config="true">
-	  <security:intercept-url pattern="/*" access="ROLE_ANUNCIANTES" />
-	  <security:form-login/>
-	  <security:logout/>
 	</security:http>
 
 	<security:authentication-manager>
@@ -54,7 +25,36 @@
 
 			group-search-filter: specifies the attribute for a group in which the members of the group will be
 			found. The pattern {0} will be replaced by the DN of the user.
-		 -->
+		-->
+		<security:ldap-authentication-provider
+			user-dn-pattern		= "uid={0},ou=people"
+			group-search-base	= "ou=groups"
+			group-search-filter	= "(member={0})" />
+	</security:authentication-manager>
+
+	<security:ldap-server url="ldap://localhost:10389/dc=example,dc=com" />
+
+
+	<!--
+ 	<security:http auto-config="true">
+	  <security:intercept-url pattern="/*" access="ROLE_ANUNCIANTES" />
+	  <security:form-login/>
+	</security:http>
+
+	<security:debug/>
+
+	<security:authentication-manager>
+
+			user-dn-pattern: specifies how the user will be authenticated in the directory.
+			Here it will replace the pattern {0} with the passed username for the user and then
+			attempt a bind operation against the LDAP server.
+
+			group-search-base: specifies the base for where it will start to search for group membership. It will
+			look inside the hierarchy starting in this base for the groups defined.
+
+			group-search-filter: specifies the attribute for a group in which the members of the group will be
+			found. The pattern {0} will be replaced by the DN of the user.
+
 		<security:ldap-authentication-provider
 			user-dn-pattern		 = "sAMAccountName={0},cn=Users"
 			group-role-attribute = "distinguishedName"
@@ -63,4 +63,28 @@
 			user-search-filter	 = "(sAMAccountName={0})"
 			group-search-filter	 = "(member={0})" />
 	</security:authentication-manager>
+
+	<security:ldap-server
+		manager-dn 		 = "globoprdom\forumdg"
+		manager-password = "20081909"
+		url				 = "ldap://10.10.37.100:389/" />
+ 	-->
+
+
+	<!--
+ 	<Realm
+ 		connectionName		= "globoprdom\forumdg"
+ 		connectionPassword	= "20081909"
+ 		connectionURL		= "ldap://130.1.101.1:389"
+ 		roleBase			= "DC=globoprdom,DC=com,DC=br"
+ 		userBase			= "DC=globoprdom,DC=com,DC=br"
+ 		userSearch			= "(sAMAccountName={0})"
+ 		roleSearch			= "(member={0})"
+		roleName			= "distinguishedName"
+ 		referrals			= "follow"
+ 		roleSubtree			= "true"
+ 		userSubtree			= "true"
+ 		className			= "org.apache.catalina.realm.JNDIRealm"
+ 		debug				= "99" />
+ 	-->
 </beans>

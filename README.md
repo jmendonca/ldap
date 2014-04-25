@@ -27,3 +27,7 @@ urls :
   4. http://www-01.ibm.com/support/docview.wss?uid=swg21290631
 
   5. http://www.zytrax.com/books/ldap/ape/
+
+  6. http://docs.spring.io/spring-security/site/docs/3.2.3.RELEASE/reference/htmlsingle/#ldap
+
+  7. http://docs.oracle.com/javase/jndi/tutorial/ldap/connect/config.html

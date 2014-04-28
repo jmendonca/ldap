@@ -7,15 +7,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns={"/admin/hello"})
-public class HelloWorldServlet extends HttpServlet {
+@WebServlet(urlPatterns={"/user/hello"})
+public class HelloWorldUserServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 2218168052197231866L;
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response){
 		try {
-			response.getWriter().write("Hello World ADMINS");
+			response.getWriter().write("Hello World USERS");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

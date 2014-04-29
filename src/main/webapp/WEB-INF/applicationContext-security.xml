@@ -18,8 +18,8 @@
 	<security:http auto-config="true">
 	  <security:intercept-url pattern="/admin/*"	access="ROLE_ADMINISTRATORS" />
 	  <security:intercept-url pattern="/user/*"		access="ROLE_USERS" />
-	  <security:form-login  />
-	  <security:logout/>
+	  <security:form-login />
+	  <security:logout />
 	</security:http>
 
 	<security:authentication-manager>

@@ -31,3 +31,5 @@ urls :
   6. http://docs.spring.io/spring-security/site/docs/3.2.3.RELEASE/reference/htmlsingle/#ldap
 
   7. http://docs.oracle.com/javase/jndi/tutorial/ldap/connect/config.html
+
+  8. https://jira.spring.io/browse/SEC-2021

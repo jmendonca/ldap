@@ -10,7 +10,7 @@
 						   http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
 	<!-- don't use this in production -->
-
+	<!--
 	<security:debug/>
 
 	<security:ldap-server url="ldap://localhost:10389/dc=example,dc=com" />
@@ -28,25 +28,27 @@
 			group-search-base	= "ou=groups"
 			group-search-filter	= "(member={0})" />
 	</security:authentication-manager>
-
+	-->
 
 	<!-- don't use this in production -->
-	<!--
-	<security:debug/>
+	<security:debug />
 
 	<security:ldap-server
 		manager-dn 		 = "globoprdom\forumdg"
 		manager-password = "20081909"
-		url				 = "ldap://10.10.37.100:389/" />
+		url				 = "ldap://10.10.37.100:389/DC=globoprdom,DC=com,DC=br" />
 
  	<security:http auto-config="true">
-	  <security:intercept-url pattern="/*" access="ROLE_ANUNCIANTES" />
+	  <security:intercept-url pattern="/diretor/**" 		access="ROLE_PI_DIRETOR"  />
+	  <security:intercept-url pattern="/inteligencia/**" 	access="ROLE_PI_INTEL" 	 />
+	  <security:intercept-url pattern="/metas/**" 			access="ROLE_METAS" 	 />
+	  <security:intercept-url pattern="/operador/**" 		access="ROLE_PI_OPERADOR" />
 	  <security:form-login/>
 	  <security:logout/>
 	</security:http>
 
 	<security:authentication-manager>
-
+		<!--
 			user-dn-pattern: specifies how the user will be authenticated in the directory.
 			Here it will replace the pattern {0} with the passed username for the user and then
 			attempt a bind operation against the LDAP server.
@@ -57,13 +59,38 @@
 			group-search-filter: specifies the attribute for a group in which the members of the group will be
 			found. The pattern {0} will be replaced by the DN of the user.
 
+			<security:ldap-authentication-provider
+				user-dn-pattern		 = "sAMAccountName={0},cn=Users"
+				group-role-attribute = "distinguishedName"
+				group-search-base	 = "DC=globoprdom,DC=com,DC=br"
+				user-search-base	 = "DC=globoprdom,DC=com,DC=br"
+				group-search-filter	 = "(member={0})"
+				user-search-filter	 = "(sAMAccountName={0})" />
+
+			<Realm
+ 				connectionName		= "globoprdom\forumdg"
+		 		connectionPassword	= "20081909"
+		 		connectionURL		= "ldap://130.1.101.1:389"
+
+		 		roleBase			= "DC=globoprdom,DC=com,DC=br"
+		 		userBase			= "DC=globoprdom,DC=com,DC=br"
+
+		 		userSearch			= "(sAMAccountName={0})"
+		 		roleSearch			= "(member={0})"
+
+				roleName			= "distinguishedName"
+		 		referrals			= "follow"
+		 		roleSubtree			= "true"
+		 		userSubtree			= "true"
+		 		className			= "org.apache.catalina.realm.JNDIRealm"
+		 		debug				= "99" />
+		-->
+
 		<security:ldap-authentication-provider
-			user-dn-pattern		 = "sAMAccountName={0},cn=Users"
-			group-role-attribute = "distinguishedName"
-			group-search-base	 = "DC=globoprdom,DC=com,DC=br"
-			user-search-base	 = "DC=globoprdom,DC=com,DC=br"
-			user-search-filter	 = "(sAMAccountName={0})"
-			group-search-filter	 = "(member={0})" />
+			user-dn-pattern		 = "CN={0},OU=Users"
+			group-search-base	 = "OU=Online,OU=DU Editorial"
+			group-search-filter	 = "(member={0})"
+			user-search-filter	 = "(sAMAccountName={0})" />
 	</security:authentication-manager>
-	 -->
+
 </beans>

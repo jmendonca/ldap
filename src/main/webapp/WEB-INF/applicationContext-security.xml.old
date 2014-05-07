@@ -78,8 +78,10 @@
  		connectionURL		= "ldap://130.1.101.1:389"
  		roleBase			= "DC=globoprdom,DC=com,DC=br"
  		userBase			= "DC=globoprdom,DC=com,DC=br"
+
  		userSearch			= "(sAMAccountName={0})"
  		roleSearch			= "(member={0})"
+
 		roleName			= "distinguishedName"
  		referrals			= "follow"
  		roleSubtree			= "true"

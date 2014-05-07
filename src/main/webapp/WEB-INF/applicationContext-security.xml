@@ -39,6 +39,7 @@
 		url				 = "ldap://10.10.37.100:389/DC=globoprdom,DC=com,DC=br" />
 
  	<security:http auto-config="true">
+ 	  <security:intercept-url pattern="/teste/**" 			access="ROLE_EGSPONLINE_DEMANDAS"  />
 	  <security:intercept-url pattern="/diretor/**" 		access="ROLE_PI_DIRETOR"  />
 	  <security:intercept-url pattern="/inteligencia/**" 	access="ROLE_PI_INTEL" 	 />
 	  <security:intercept-url pattern="/metas/**" 			access="ROLE_METAS" 	 />
@@ -85,12 +86,12 @@
 		 		className			= "org.apache.catalina.realm.JNDIRealm"
 		 		debug				= "99" />
 		-->
-
 		<security:ldap-authentication-provider
-			user-dn-pattern		 = "CN={0},OU=Users"
+			user-dn-pattern		 = "CN={0},OU=Users,OU=Online,OU=DU Editorial"
+			user-search-base	 = "OU=Online,OU=DU Editorial"
+			user-search-filter	 = "(sAMAccountName={0})"
 			group-search-base	 = "OU=Online,OU=DU Editorial"
-			group-search-filter	 = "(member={0})"
-			user-search-filter	 = "(sAMAccountName={0})" />
+			group-search-filter	 = "(member={0})" />
 	</security:authentication-manager>
 
 </beans>
